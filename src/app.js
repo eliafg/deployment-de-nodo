@@ -1,19 +1,27 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-//settings
-app.set('port', 4000);
+import Navigation from './components/Navigation'
+import NotesList from './components/NotesList'
+import CreateNote from './components/CreateNote'
+import CreateUser from './components/CreateUser'
 
-//middlewares
+import './App.css';
 
-app.use(cors());
-app.use(express.json());
-//routes
-//USERS
-app.use('/api/users', require('./routes/users'))
-    //NOTES
-app.use('/api/notes', require('./routes/notes'))
+function App() {
+  return (
+    <Router>
+      <Navigation />
+      <div className="container p-4">
+        <Route path="/" exact component={NotesList} />
+        <Route path="/edit/:id" component={CreateNote} />
+        <Route path="/create" component={CreateNote} />
+        <Route path="/user" component={CreateUser} />
+      </div>
+    </Router>
+  );
+}
 
-
-module.exports = app;
+export default App;
